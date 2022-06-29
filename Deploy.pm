@@ -61,6 +61,11 @@ sub run {
 			'Error', $EVAL_ERROR,
 		;
 	}
+	if (! $schema->isa('DBIx::Class::Schema')) {
+		err "Instance of schema must be a 'DBIx::Class::Schema' object.",
+			'Reference', $schema->isa,
+		;
+	}
 
 	# Deploy.
 	$schema->deploy;
