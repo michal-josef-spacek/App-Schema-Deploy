@@ -7,27 +7,27 @@ SYNOPSIS
 ARGUMENTS
     *       "-h"
 
-             Print help.
+            Print help.
 
     *       "-p password"
 
-             Database password.
+            Database password.
 
     *       "-u user"
 
-             Database user.
+            Database user.
 
     *       "--version"
 
-             Print version of script.
+            Print version of script.
 
     *       "dsn"
 
-             Database DSN
+            Database DSN.
 
     *       "schema_module"
 
-             Name of Schema module.
+            Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
 EXAMPLE
      schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote

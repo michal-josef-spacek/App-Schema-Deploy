@@ -36,27 +36,27 @@ schema-deploy - Script to deploy Schema.
 
 =item * C<-h>
 
- Print help.
+Print help.
 
 =item * C<-p password>
 
- Database password.
+Database password.
 
 =item * C<-u user>
 
- Database user.
+Database user.
 
 =item * C<--version>
 
- Print version of script.
+Print version of script.
 
 =item * C<dsn>
 
- Database DSN
+Database DSN.
 
 =item * C<schema_module>
 
- Name of Schema module.
+Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
 =back
 
