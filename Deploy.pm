@@ -113,6 +113,17 @@ Run.
 
 Returns 1 for error, 0 for success.
 
+=head1 ERRORS
+
+ run():
+         Cannot connect to Schema database.
+                 Error: %s
+         Cannot load Schema module.
+                 Module name: %s
+                 Error: %s
+         Instance of schema must be a 'DBIx::Class::Schema' object.
+                 Reference: %s
+
 =head1 EXAMPLE
 
  use strict;
