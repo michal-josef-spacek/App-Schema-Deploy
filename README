@@ -1,0 +1,50 @@
+NAME
+    schema-deploy - Script to deploy Schema.
+
+SYNOPSIS
+     schema-deploy [-h] [-p password] [-u user] [--version] dsn schema_module
+
+ARGUMENTS
+    *       "-h"
+
+             Print help.
+
+    *       "-p password"
+
+             Database password.
+
+    *       "-u user"
+
+             Database user.
+
+    *       "--version"
+
+             Print version of script.
+
+    *       "dsn"
+
+             Database DSN
+
+    *       "schema_module"
+
+             Name of Schema module.
+
+EXAMPLE
+     schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote
+
+REPOSITORY
+    <https://github.com/michal-josef-spacek/App-Schema-Deploy>
+
+AUTHOR
+    Michal Josef Špaček <mailto:skim@cpan.org>
+
+    <http://skim.cz>
+
+LICENSE AND COPYRIGHT
+    © 2022 Michal Josef Špaček
+
+    BSD 2-Clause License
+
+VERSION
+    0.01
+
