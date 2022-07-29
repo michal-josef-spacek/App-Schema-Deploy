@@ -1,5 +1,6 @@
 0.08
  - Fix check for number of arguments.
+ - Improve check for arguments to version with better importance.
  - Improve doc of tool.
  - Improve help message in tool.
 
