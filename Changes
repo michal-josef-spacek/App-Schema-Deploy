@@ -1,4 +1,5 @@
 0.08
+ - Add tests for run() method.
  - Fix check for number of arguments.
  - Improve check for arguments to version with better importance.
  - Improve doc of tool.
