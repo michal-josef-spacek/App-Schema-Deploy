@@ -19,7 +19,7 @@ Usage: $script [-h] [-p password] [-u user] [--version] dsn schema_module
 	-p password	Database password.
 	-u user		Database user.
 	--version	Print version.
-	dsn		Database DSN
+	dsn		Database DSN. e.g. dbi:SQLite:dbname=ex1.db
 	schema_module	Name of Schema module.
 END
 stderr_is(

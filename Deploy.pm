@@ -38,7 +38,7 @@ sub run {
 		print STDERR "\t-p password\tDatabase password.\n";
 		print STDERR "\t-u user\t\tDatabase user.\n";
 		print STDERR "\t--version\tPrint version.\n";
-		print STDERR "\tdsn\t\tDatabase DSN\n";
+		print STDERR "\tdsn\t\tDatabase DSN. e.g. dbi:SQLite:dbname=ex1.db\n";
 		print STDERR "\tschema_module\tName of Schema module.\n";
 		return 1;
 	}
