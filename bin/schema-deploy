@@ -53,6 +53,7 @@ Print version of script.
 =item * C<dsn>
 
 Database DSN.
+e.g. dbi:SQLite:dbname=ex1.db
 
 =item * C<schema_module>
 

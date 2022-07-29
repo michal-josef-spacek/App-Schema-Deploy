@@ -23,7 +23,7 @@ ARGUMENTS
 
     *       "dsn"
 
-            Database DSN.
+            Database DSN. e.g. dbi:SQLite:dbname=ex1.db
 
     *       "schema_module"
 
