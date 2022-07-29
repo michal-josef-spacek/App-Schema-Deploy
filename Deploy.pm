@@ -30,7 +30,7 @@ sub run {
 		'p' => '',
 		'u' => '',
 	};
-	if (! getopts('hp:u:', $self->{'_opts'}) || @ARGV < 1
+	if (! getopts('hp:u:', $self->{'_opts'}) || @ARGV < 2
 		|| $self->{'_opts'}->{'h'}) {
 
 		print STDERR "Usage: $0 [-h] [-p password] [-u user] [--version] dsn schema_module\n";
