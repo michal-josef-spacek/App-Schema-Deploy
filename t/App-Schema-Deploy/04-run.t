@@ -16,13 +16,14 @@ use Test::Warn;
 );
 my $script = abs2rel(File::Object->new->file('04-run.t')->s);
 my $right_ret_stderr = <<"END";
-Usage: $script [-h] [-p password] [-u user] [--version] dsn schema_module
-	-h		Print help.
-	-p password	Database password.
-	-u user		Database user.
-	--version	Print version.
-	dsn		Database DSN. e.g. dbi:SQLite:dbname=ex1.db
-	schema_module	Name of Schema module.
+Usage: $script [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
+	-h			Print help.
+	-p password		Database password.
+	-u user			Database user.
+	-v schema_version	Schema version (default is latest version).
+	--version		Print version.
+	dsn			Database DSN. e.g. dbi:SQLite:dbname=ex1.db
+	schema_module		Name of Schema module.
 END
 stderr_is(
 	sub {
