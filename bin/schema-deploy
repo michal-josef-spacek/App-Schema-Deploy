@@ -28,7 +28,7 @@ schema-deploy - Script to deploy Schema.
 
 =head1 SYNOPSIS
 
- schema-deploy [-h] [-p password] [-u user] [--version] dsn schema_module
+ schema-deploy [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
 
 =head1 ARGUMENTS
 
@@ -45,6 +45,11 @@ Database password.
 =item * C<-u user>
 
 Database user.
+
+=item * C<-v schema_version>
+
+Schema version. Only if Schema object is versioned by L<Schema::Abstract>.
+Default value is latest schema version.
 
 =item * C<--version>
 

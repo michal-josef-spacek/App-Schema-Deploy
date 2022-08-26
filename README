@@ -2,7 +2,7 @@ NAME
     schema-deploy - Script to deploy Schema.
 
 SYNOPSIS
-     schema-deploy [-h] [-p password] [-u user] [--version] dsn schema_module
+     schema-deploy [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
 
 ARGUMENTS
     *       "-h"
@@ -16,6 +16,11 @@ ARGUMENTS
     *       "-u user"
 
             Database user.
+
+    *       "-v schema_version"
+
+            Schema version. Only if Schema object is versioned by
+            Schema::Abstract. Default value is latest schema version.
 
     *       "--version"
 

@@ -29,18 +29,22 @@ sub run {
 		'h' => 0,
 		'p' => '',
 		'u' => '',
+		'v' => undef,
 	};
-	if (! getopts('hp:u:', $self->{'_opts'})
+	if (! getopts('hp:u:v:', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 2) {
 
-		print STDERR "Usage: $0 [-h] [-p password] [-u user] [--version] dsn schema_module\n";
-		print STDERR "\t-h\t\tPrint help.\n";
-		print STDERR "\t-p password\tDatabase password.\n";
-		print STDERR "\t-u user\t\tDatabase user.\n";
-		print STDERR "\t--version\tPrint version.\n";
-		print STDERR "\tdsn\t\tDatabase DSN. e.g. dbi:SQLite:dbname=ex1.db\n";
-		print STDERR "\tschema_module\tName of Schema module.\n";
+		print STDERR "Usage: $0 [-h] [-p password] [-u user] [-v schema_version] ".
+			"[--version] dsn schema_module\n";
+		print STDERR "\t-h\t\t\tPrint help.\n";
+		print STDERR "\t-p password\t\tDatabase password.\n";
+		print STDERR "\t-u user\t\t\tDatabase user.\n";
+		print STDERR "\t-v schema_version\tSchema version (default is ".
+			"latest version).\n";
+		print STDERR "\t--version\t\tPrint version.\n";
+		print STDERR "\tdsn\t\t\tDatabase DSN. e.g. dbi:SQLite:dbname=ex1.db\n";
+		print STDERR "\tschema_module\t\tName of Schema module.\n";
 		return 1;
 	}
 	$self->{'_dsn'} = shift @ARGV;
@@ -53,8 +57,24 @@ sub run {
 			'Error', $EVAL_ERROR,
 		;
 	}
+
+	my $schema_module;
+	my $schema_version;
+	if ($self->{'_schema_module'}->can('new')) {
+		my $versioned_schema = $self->{'_schema_module'}->new(
+			$self->{'_opts'}->{'v'} ? (
+				'version' => $self->{'_opts'}->{'v'},
+			) : (),
+		);
+		$schema_module = $versioned_schema->schema;
+		$schema_version = $versioned_schema->version;
+
+	} else {
+		$schema_module = $self->{'_schema_module'};
+	}
+
 	my $schema = eval {
-		$self->{'_schema_module'}->connect($self->{'_dsn'},
+		$schema_module->connect($self->{'_dsn'},
 			$self->{'_opts'}->{'u'}, $self->{'_opts'}->{'p'}, {});
 	};
 	if ($EVAL_ERROR) {
@@ -71,7 +91,12 @@ sub run {
 	# Deploy.
 	$schema->deploy;
 
-	print "Schema from '$self->{'_schema_module'}' was deployed to '$self->{'_dsn'}'.\n";
+	my $print_version = '';
+	if (defined $schema_version) {
+		$print_version = '(v'.$schema_version.') ';
+	}
+	print "Schema ${print_version}from '$self->{'_schema_module'}' was ".
+		"deployed to '$self->{'_dsn'}'.\n";
 
 	return 0;
 }
