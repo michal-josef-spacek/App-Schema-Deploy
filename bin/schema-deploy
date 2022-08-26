@@ -70,6 +70,16 @@ Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
  schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote
 
+=head1 SEE ALSO
+
+=over
+
+=item L<schema-data>
+
+Script to manipulation with data for Schema.
+
+=back
+
 =head1 REPOSITORY
 
 L<https://github.com/michal-josef-spacek/App-Schema-Deploy>

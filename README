@@ -37,6 +37,10 @@ ARGUMENTS
 EXAMPLE
      schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote
 
+SEE ALSO
+    schema-data
+        Script to manipulation with data for Schema.
+
 REPOSITORY
     <https://github.com/michal-josef-spacek/App-Schema-Deploy>
 

@@ -175,6 +175,16 @@ L<English>,
 L<Error::Pure>,
 L<Getopt::Std>.
 
+=head1 SEE ALSO
+
+=over
+
+=item L<App::Schema::Data>
+
+Base class for schema-data script.
+
+=back
+
 =head1 REPOSITORY
 
 L<https://github.com/michal-josef-spacek/App-Schema-Deploy>
