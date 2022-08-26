@@ -152,6 +152,8 @@ Returns 1 for error, 0 for success.
 
 =head1 EXAMPLE
 
+=for comment filename=deploy_schema_commons.pl
+
  use strict;
  use warnings;
 
@@ -167,7 +169,7 @@ Returns 1 for error, 0 for success.
  exit App::Schema::Deploy->new->run;
 
  # Output like:
- # Schema from 'Schema::Commons::Vote' was deployed to 'dbi:SQLite:dbname=ex2.db'.
+ # Schema (v0.1.0) from 'Schema::Commons::Vote' was deployed to 'dbi:SQLite:dbname=ex2.db'.
 
 =head1 DEPENDENCIES
 
