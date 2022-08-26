@@ -181,6 +181,10 @@ L<Getopt::Std>.
 
 =over
 
+=item L<Schema::Abstract>
+
+Abstract class for DB schemas.
+
 =item L<App::Schema::Data>
 
 Base class for schema-data script.
