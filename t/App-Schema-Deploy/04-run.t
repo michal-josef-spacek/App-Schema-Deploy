@@ -15,6 +15,10 @@ use Test::Warn;
 	'-h',
 );
 my $script = abs2rel(File::Object->new->file('04-run.t')->s);
+# XXX Hack for missing abs2rel on Windows.
+if ($OSNAME eq 'MSWin32') {
+	$script =~ s/\\/\//msg;
+}
 my $right_ret_stderr = <<"END";
 Usage: $script [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
 	-h			Print help.
