@@ -28,11 +28,15 @@ schema-deploy - Script to deploy Schema.
 
 =head1 SYNOPSIS
 
- schema-deploy [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
+ schema-deploy [-d] [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
 
 =head1 ARGUMENTS
 
 =over 8
+
+=item * C<-d>
+
+Drop tables before deploy.
 
 =item * C<-h>
 
