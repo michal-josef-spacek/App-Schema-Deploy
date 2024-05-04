@@ -1,4 +1,5 @@
 0.04
+ - Improve error handling.
  - Update Module::Install to 1.21 version.
  - Update copyright years.
 

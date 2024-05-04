@@ -80,7 +80,7 @@ sub run {
 			$self->{'_opts'}->{'u'}, $self->{'_opts'}->{'p'}, {});
 	};
 	if ($EVAL_ERROR) {
-		err 'Cannot connect to Schema database.',
+		err 'Cannot connect to database.',
 			'Error', $EVAL_ERROR,
 		;
 	}
@@ -95,7 +95,23 @@ sub run {
 	if ($self->{'_opts'}->{'d'}) {
 		$sqlt_args_hr->{'add_drop_table'} = 1;
 	}
-	$schema->deploy($sqlt_args_hr);
+	eval {
+		$schema->deploy($sqlt_args_hr);
+	};
+	if ($EVAL_ERROR) {
+		my %err = (
+			'Error' => $EVAL_ERROR->{'msg'},
+		);
+		if ($EVAL_ERROR->{'msg'} =~ m/DBI Connection failed/) {
+			err "Cannot connect to database.",
+				%err,
+			;
+		} else {
+			err 'Cannot deploy schema.',
+				%err,
+			;
+		}
+	}
 
 	my $print_version = '';
 	if (defined $schema_version) {
@@ -148,7 +164,9 @@ Returns 1 for error, 0 for success.
 =head1 ERRORS
 
  run():
-         Cannot connect to Schema database.
+         Cannot connect to database.
+                 Error: %s
+         Cannot deploy schema.
                  Error: %s
          Cannot load Schema module.
                  Module name: %s
