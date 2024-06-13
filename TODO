@@ -2,10 +2,12 @@ TODO
 ====
 1. Implement DBD options.
 2. Improve tests.
-4. Add -q option to test.
 5.
 
 Applied
 =======
 3. Add -q option for quiet version.
+OK [20240613] skim
+
+4. Add -q option to test.
 OK [20240613] skim

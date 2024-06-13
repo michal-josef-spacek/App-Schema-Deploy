@@ -19,6 +19,7 @@ unshift @INC, $data->dir('ex1')->s;
 require Schema::Foo;
 my (undef, $db_file) = tempfile();
 @ARGV = (
+	'-q',
 	'dbi:SQLite:dbname='.$db_file,
 	'Schema::Foo',
 );
