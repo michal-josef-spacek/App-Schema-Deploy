@@ -1,4 +1,5 @@
 0.05
+ - Add -q option for quiet mode.
  - Add tests.
  - Improve testing of help output.
 

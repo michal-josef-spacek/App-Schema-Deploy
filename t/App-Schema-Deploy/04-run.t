@@ -90,10 +90,11 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $right_ret_stderr = <<"END";
-Usage: $script [-d] [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
+Usage: $script [-d] [-h] [-p password] [-q] [-u user] [-v schema_version] [--version] dsn schema_module
 	-d			Drop tables.
 	-h			Print help.
 	-p password		Database password.
+	-q			Quiet mode.
 	-u user			Database user.
 	-v schema_version	Schema version (default is latest version).
 	--version		Print version.
