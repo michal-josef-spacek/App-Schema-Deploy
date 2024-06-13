@@ -5,10 +5,26 @@ use App::Schema::Deploy;
 use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
-use Test::More 'tests' => 6;
+use File::Temp qw(tempfile);
+use Test::More 'tests' => 7;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn;
+
+# Data directory.
+my $data = File::Object->new->up->dir('data');
+
+# Test.
+unshift @INC, $data->dir('ex1')->s;
+require Schema::Foo;
+my (undef, $db_file) = tempfile();
+@ARGV = (
+	'dbi:SQLite:dbname='.$db_file,
+	'Schema::Foo',
+);
+my $ret = App::Schema::Deploy->new->run;
+is($ret, 0, 'Deployed SQLite database.');
+unlink $db_file;
 
 # Test.
 @ARGV = (
