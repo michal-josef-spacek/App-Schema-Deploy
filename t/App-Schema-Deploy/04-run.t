@@ -14,22 +14,7 @@ use Test::Warn;
 @ARGV = (
 	'-h',
 );
-my $script = abs2rel(File::Object->new->file('04-run.t')->s);
-# XXX Hack for missing abs2rel on Windows.
-if ($OSNAME eq 'MSWin32') {
-	$script =~ s/\\/\//msg;
-}
-my $right_ret_stderr = <<"END";
-Usage: $script [-d] [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
-	-d			Drop tables.
-	-h			Print help.
-	-p password		Database password.
-	-u user			Database user.
-	-v schema_version	Schema version (default is latest version).
-	--version		Print version.
-	dsn			Database DSN. e.g. dbi:SQLite:dbname=ex1.db
-	schema_module		Name of Schema module.
-END
+my $right_ret_stderr = help();
 stderr_is(
 	sub {
 		App::Schema::Deploy->new->run;
@@ -43,6 +28,7 @@ stderr_is(
 @ARGV = (
 	'dbi:SQLite:dbname=fake.db',
 );
+$right_ret_stderr = help();
 stderr_is(
 	sub {
 		App::Schema::Deploy->new->run;
@@ -80,3 +66,24 @@ eval {
 	App::Schema::Deploy->new->run;
 };
 is($EVAL_ERROR, "Cannot load Schema module.\n", 'Run with bad Schema module.');
+
+sub help {
+	my $script = abs2rel(File::Object->new->file('04-run.t')->s);
+	# XXX Hack for missing abs2rel on Windows.
+	if ($OSNAME eq 'MSWin32') {
+		$script =~ s/\\/\//msg;
+	}
+	my $right_ret_stderr = <<"END";
+Usage: $script [-d] [-h] [-p password] [-u user] [-v schema_version] [--version] dsn schema_module
+	-d			Drop tables.
+	-h			Print help.
+	-p password		Database password.
+	-u user			Database user.
+	-v schema_version	Schema version (default is latest version).
+	--version		Print version.
+	dsn			Database DSN. e.g. dbi:SQLite:dbname=ex1.db
+	schema_module		Name of Schema module.
+END
+
+	return $right_ret_stderr;
+}
