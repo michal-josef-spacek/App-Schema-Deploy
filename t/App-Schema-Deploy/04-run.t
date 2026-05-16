@@ -85,8 +85,7 @@ eval {
 is($EVAL_ERROR, "Cannot load Schema module.\n", 'Run with bad Schema module.');
 
 sub help {
-	my $script = abs2rel(File::Object->new->file('04-run.t')->s);
-	# XXX Hack for missing abs2rel on Windows.
+	my $script = abs2rel(__FILE__);
 	if ($OSNAME eq 'MSWin32') {
 		$script =~ s/\\/\//msg;
 	}
