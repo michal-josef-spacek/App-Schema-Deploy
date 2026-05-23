@@ -6,7 +6,7 @@ use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use File::Temp qw(tempfile);
-use Test::More 'tests' => 8;
+use Test::More 'tests' => 9;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn;
@@ -30,11 +30,20 @@ unlink $db_file;
 # Test.
 my (undef, $db_file_versioned) = tempfile();
 @ARGV = (
-	'-q',
 	'dbi:SQLite:dbname='.$db_file_versioned,
 	'Schema::Foo@0.1.0',
 );
-$ret = App::Schema::Deploy->new->run;
+my $right_ret = <<'END';
+Schema (v0.1.0) from 'Schema::Foo' was deployed to 'dbi:SQLite:dbname=
+END
+chomp $right_ret;
+stdout_like(
+	sub {
+		$ret = App::Schema::Deploy->new->run;
+	},
+	qr(^\Q$right_ret\E),
+	'Verbose output.',
+);
 is($ret, 0, 'Deployed SQLite database with inline schema version.');
 unlink $db_file_versioned;
 
@@ -42,7 +51,7 @@ unlink $db_file_versioned;
 @ARGV = (
 	'-h',
 );
-my $right_ret = help();
+$right_ret = help();
 stderr_is(
 	sub {
 		App::Schema::Deploy->new->run;
@@ -70,6 +79,7 @@ stderr_is(
 @ARGV = (
 	'-x',
 );
+$right_ret = help();
 warning_is(
 	sub {
 		stderr_is(
