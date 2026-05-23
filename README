@@ -4,6 +4,11 @@ NAME
 SYNOPSIS
      schema-deploy [-d] [-h] [-p password] [-q] [-u user] [--version] dsn schema_module[@schema_version]
 
+DESCRIPTION
+    "schema-deploy" deploys a DBIx::Class schema to a database. It accepts
+    an optional inline schema version suffix in the form
+    "schema_module@schema_version".
+
 ARGUMENTS
     *       "-d"
 

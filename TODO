@@ -2,7 +2,6 @@ TODO
 ====
 1. Implement DBD options.
 2. Improve tests.
-5. Add DESCRIPTION section to tool.
 6.
 
 Applied
@@ -12,3 +11,6 @@ OK [20240613] skim
 
 4. Add -q option to test.
 OK [20240613] skim
+
+5. Add DESCRIPTION section to tool.
+OK [20260523] skim

@@ -1,6 +1,7 @@
 0.06
  - API change: Remove -v option for schema version and move to schema name
    after '@' character.
+ - Add DESCRIPTION section to doc.
  - Improve abstract.
  - Remove XXX from tests.
 

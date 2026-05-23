@@ -150,6 +150,12 @@ App::Schema::Deploy - Base class for schema-deploy tool.
  my $app = App::Schema::Deploy->new;
  my $exit_code = $app->run;
 
+=head1 DESCRIPTION
+
+Base class for the C<schema-deploy> tool. It parses the command line, loads a
+schema module, optionally selects a schema version, and deploys the schema to a
+database.
+
 =head1 METHODS
 
 =head2 C<new>
