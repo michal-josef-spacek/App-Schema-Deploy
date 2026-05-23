@@ -42,13 +42,13 @@ unlink $db_file_versioned;
 @ARGV = (
 	'-h',
 );
-my $right_ret_stderr = help();
+my $right_ret = help();
 stderr_is(
 	sub {
 		App::Schema::Deploy->new->run;
 		return;
 	},
-	$right_ret_stderr,
+	$right_ret,
 	'Run help.',
 );
 
@@ -56,13 +56,13 @@ stderr_is(
 @ARGV = (
 	'dbi:SQLite:dbname=fake.db',
 );
-$right_ret_stderr = help();
+$right_ret = help();
 stderr_is(
 	sub {
 		App::Schema::Deploy->new->run;
 		return;
 	},
-	$right_ret_stderr,
+	$right_ret,
 	'Run without Schema module.',
 );
 
@@ -77,7 +77,7 @@ warning_is(
 				App::Schema::Deploy->new->run;
 				return;
 			},
-			$right_ret_stderr,
+			$right_ret,
 			'Run help with bad option.',
 		);
 	},
