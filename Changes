@@ -5,6 +5,7 @@
  - Add test.
  - Improve abstract.
  - Remove XXX from tests.
+ - Update copyright years.
 
 0.05 2024-06-13T23:30:31+02:00
  - Add -q option for quiet mode.
