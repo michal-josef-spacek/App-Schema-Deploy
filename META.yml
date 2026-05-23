@@ -1,5 +1,5 @@
 ---
-abstract: 'Base class and script for Schema deploy.'
+abstract: 'Tool for DB schema deploy.'
 author:
   - 'Michal Josef Spacek <skim@cpan.org>'
 build_requires:

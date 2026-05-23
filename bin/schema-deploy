@@ -24,7 +24,7 @@ __END__
 
 =head1 NAME
 
-schema-deploy - Script to deploy Schema.
+schema-deploy - Tool to deploy Schema.
 
 =head1 SYNOPSIS
 

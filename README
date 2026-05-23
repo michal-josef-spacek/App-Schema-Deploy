@@ -1,5 +1,5 @@
 NAME
-    schema-deploy - Script to deploy Schema.
+    schema-deploy - Tool to deploy Schema.
 
 SYNOPSIS
      schema-deploy [-d] [-h] [-p password] [-q] [-u user] [-v schema_version] [--version] dsn schema_module

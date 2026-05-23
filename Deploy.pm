@@ -138,7 +138,7 @@ __END__
 
 =head1 NAME
 
-App::Schema::Deploy - Base class for schema-deploy script.
+App::Schema::Deploy - Base class for schema-deploy tool.
 
 =head1 SYNOPSIS
 
