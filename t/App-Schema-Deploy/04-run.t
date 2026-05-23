@@ -100,7 +100,7 @@ sub help {
 	if ($OSNAME eq 'MSWin32') {
 		$script =~ s/\\/\//msg;
 	}
-	my $right_ret_stderr = <<"END";
+	my $help = <<"END";
 Usage: $script [-d] [-h] [-p password] [-q] [-u user] [--version] dsn schema_module[\@schema_version]
 	-d				Drop tables.
 	-h				Print help.
@@ -112,5 +112,5 @@ Usage: $script [-d] [-h] [-p password] [-q] [-u user] [--version] dsn schema_mod
 	schema_module[\@schema_version]	Name of Schema module.
 END
 
-	return $right_ret_stderr;
+	return $help;
 }
