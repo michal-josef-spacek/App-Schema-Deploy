@@ -8,7 +8,7 @@ use App::Schema::Deploy;
 # Arguments.
 @ARGV = (
         'dbi:SQLite:dbname=sqlite.db',
-        'Schema::Commons::Vote',
+        'Schema::Commons::Vote@0.1.0',
 );
 
 # Run.

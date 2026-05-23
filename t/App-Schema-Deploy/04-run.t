@@ -6,7 +6,7 @@ use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use File::Temp qw(tempfile);
-use Test::More 'tests' => 7;
+use Test::More 'tests' => 8;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn;
@@ -26,6 +26,17 @@ my (undef, $db_file) = tempfile();
 my $ret = App::Schema::Deploy->new->run;
 is($ret, 0, 'Deployed SQLite database.');
 unlink $db_file;
+
+# Test.
+my (undef, $db_file_versioned) = tempfile();
+@ARGV = (
+	'-q',
+	'dbi:SQLite:dbname='.$db_file_versioned,
+	'Schema::Foo@0.1.0',
+);
+$ret = App::Schema::Deploy->new->run;
+is($ret, 0, 'Deployed SQLite database with inline schema version.');
+unlink $db_file_versioned;
 
 # Test.
 @ARGV = (
@@ -90,16 +101,15 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $right_ret_stderr = <<"END";
-Usage: $script [-d] [-h] [-p password] [-q] [-u user] [-v schema_version] [--version] dsn schema_module
-	-d			Drop tables.
-	-h			Print help.
-	-p password		Database password.
-	-q			Quiet mode.
-	-u user			Database user.
-	-v schema_version	Schema version (default is latest version).
-	--version		Print version.
-	dsn			Database DSN. e.g. dbi:SQLite:dbname=ex1.db
-	schema_module		Name of Schema module.
+Usage: $script [-d] [-h] [-p password] [-q] [-u user] [--version] dsn schema_module[\@schema_version]
+	-d				Drop tables.
+	-h				Print help.
+	-p password			Database password.
+	-q				Quiet mode.
+	-u user				Database user.
+	--version			Print version.
+	dsn				Database DSN. e.g. dbi:SQLite:dbname=ex1.db
+	schema_module[\@schema_version]	Name of Schema module.
 END
 
 	return $right_ret_stderr;

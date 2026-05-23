@@ -2,7 +2,7 @@ NAME
     schema-deploy - Tool to deploy Schema.
 
 SYNOPSIS
-     schema-deploy [-d] [-h] [-p password] [-q] [-u user] [-v schema_version] [--version] dsn schema_module
+     schema-deploy [-d] [-h] [-p password] [-q] [-u user] [--version] dsn schema_module[@schema_version]
 
 ARGUMENTS
     *       "-d"
@@ -25,11 +25,6 @@ ARGUMENTS
 
             Database user.
 
-    *       "-v schema_version"
-
-            Schema version. Only if Schema object is versioned by
-            Schema::Abstract. Default value is latest schema version.
-
     *       "--version"
 
             Print version of script.
@@ -38,12 +33,12 @@ ARGUMENTS
 
             Database DSN. e.g. dbi:SQLite:dbname=ex1.db
 
-    *       "schema_module"
+    *       "schema_module[@schema_version]"
 
             Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
 EXAMPLE
-     schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote
+     schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote@0.1.0
 
 SEE ALSO
     schema-data

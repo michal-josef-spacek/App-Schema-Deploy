@@ -31,28 +31,32 @@ sub run {
 		'p' => '',
 		'q' => 0,
 		'u' => '',
-		'v' => undef,
 	};
-	if (! getopts('dhp:qu:v:', $self->{'_opts'})
+	if (! getopts('dhp:qu:', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 2) {
 
-		print STDERR "Usage: $0 [-d] [-h] [-p password] [-q] [-u user] [-v schema_version] ".
-			"[--version] dsn schema_module\n";
-		print STDERR "\t-d\t\t\tDrop tables.\n";
-		print STDERR "\t-h\t\t\tPrint help.\n";
-		print STDERR "\t-p password\t\tDatabase password.\n";
-		print STDERR "\t-q\t\t\tQuiet mode.\n";
-		print STDERR "\t-u user\t\t\tDatabase user.\n";
-		print STDERR "\t-v schema_version\tSchema version (default is ".
-			"latest version).\n";
-		print STDERR "\t--version\t\tPrint version.\n";
-		print STDERR "\tdsn\t\t\tDatabase DSN. e.g. dbi:SQLite:dbname=ex1.db\n";
-		print STDERR "\tschema_module\t\tName of Schema module.\n";
+		print STDERR "Usage: $0 [-d] [-h] [-p password] [-q] [-u user] ".
+			"[--version] dsn schema_module[\@schema_version]\n";
+		print STDERR "\t-d\t\t\t\tDrop tables.\n";
+		print STDERR "\t-h\t\t\t\tPrint help.\n";
+		print STDERR "\t-p password\t\t\tDatabase password.\n";
+		print STDERR "\t-q\t\t\t\tQuiet mode.\n";
+		print STDERR "\t-u user\t\t\t\tDatabase user.\n";
+		print STDERR "\t--version\t\t\tPrint version.\n";
+		print STDERR "\tdsn\t\t\t\tDatabase DSN. e.g. dbi:SQLite:dbname=ex1.db\n";
+		print STDERR "\tschema_module[\@schema_version]\tName of Schema module.\n";
 		return 1;
 	}
 	$self->{'_dsn'} = shift @ARGV;
 	$self->{'_schema_module'} = shift @ARGV;
+
+	# Parse optional schema version from argument.
+	my $schema_version;
+	if ($self->{'_schema_module'} =~ m/\A(.+)\@([^@]+)\z/ms) {
+		$self->{'_schema_module'} = $1;
+		$schema_version = $2;
+	}
 
 	eval "require $self->{'_schema_module'}";
 	if ($EVAL_ERROR) {
@@ -63,11 +67,10 @@ sub run {
 	}
 
 	my $schema_module;
-	my $schema_version;
 	if ($self->{'_schema_module'}->can('new')) {
 		my $versioned_schema = $self->{'_schema_module'}->new(
-			$self->{'_opts'}->{'v'} ? (
-				'version' => $self->{'_opts'}->{'v'},
+			defined $schema_version ? (
+				'version' => $schema_version,
 			) : (),
 		);
 		$schema_module = $versioned_schema->schema;
@@ -190,7 +193,7 @@ Returns 1 for error, 0 for success.
  # Arguments.
  @ARGV = (
          'dbi:SQLite:dbname=sqlite.db',
-         'Schema::Commons::Vote',
+         'Schema::Commons::Vote@0.1.0',
  );
 
  # Run.
