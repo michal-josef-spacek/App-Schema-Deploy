@@ -34,6 +34,9 @@ schema-deploy - Tool to deploy Schema.
 
 C<schema-deploy> deploys a L<DBIx::Class> schema to a database. It accepts an
 optional inline schema version suffix in the form C<schema_module@schema_version>.
+Before deploy it checks object-name overlap in the target database and blocks
+deploy when conflicting objects already exist. This overlap guard is skipped
+when the C<-d> option is used.
 
 =head1 ARGUMENTS
 

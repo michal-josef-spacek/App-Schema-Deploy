@@ -19,6 +19,7 @@ name 'App-Schema-Deploy';
 perl_version 5.006;
 readme_from 'bin/schema-deploy';
 recursive_author_tests('xt');
+requires 'DBIx::Class::Schema::Overlap' => 0;
 requires 'English' => 0;
 requires 'Error::Pure' => 0;
 requires 'Getopt::Std' => 0;
@@ -28,6 +29,7 @@ resources 'repository' => 'git://github.com/michal-josef-spacek/App-Schema-Deplo
 test_requires 'DBIx::Class::Core' => 0;
 test_requires 'DBIx::Class::InflateColumn::DateTime' => 0;
 test_requires 'DBIx::Class::Schema' => 0;
+test_requires 'DBIx::Class::Schema::Overlap' => 0;
 test_requires 'English' => 0;
 test_requires 'File::Object' => 0;
 test_requires 'File::Spec::Functions' => 0;

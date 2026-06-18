@@ -3,6 +3,7 @@ package App::Schema::Deploy;
 use strict;
 use warnings;
 
+use DBIx::Class::Schema::Overlap;
 use English;
 use Error::Pure qw(err);
 use Getopt::Std;
@@ -95,6 +96,15 @@ sub run {
 		;
 	}
 
+	# Check overlap before deploy unless explicit drop was requested.
+	if (! $self->{'_opts'}->{'d'}) {
+		$self->_check_overlap($self->{'_schema_module'},
+			defined $schema_version ? (
+				'version' => $schema_version,
+			) : (),
+		);
+	}
+
 	# Deploy.
 	my $sqlt_args_hr = {};
 	if ($self->{'_opts'}->{'d'}) {
@@ -130,6 +140,32 @@ sub run {
 	return 0;
 }
 
+# Check overlap.
+sub _check_overlap {
+	my ($self, $schema_module, @schema_params) = @_;
+
+	my $versioned_schema = $schema_module->can('new')
+		? $schema_module->new(@schema_params)
+		: $schema_module;
+	my $overlap = DBIx::Class::Schema::Overlap->new(
+		'attrs' => {},
+		'dsn' => $self->{'_dsn'},
+		'password' => $self->{'_opts'}->{'p'},
+		'schema' => $versioned_schema,
+		'user' => $self->{'_opts'}->{'u'},
+	);
+	my $ret = $overlap->check;
+	if ($ret->{'has_overlap'}) {
+		my $conflict = $ret->{'conflicts'}->[0];
+		err 'Schema overlap detected.',
+			'Type', $conflict->{'type'},
+			'Name', $conflict->{'name'},
+		;
+	}
+
+	return;
+}
+
 1;
 
 
@@ -154,7 +190,9 @@ App::Schema::Deploy - Base class for schema-deploy tool.
 
 Base class for the C<schema-deploy> tool. It parses the command line, loads a
 schema module, optionally selects a schema version, and deploys the schema to a
-database.
+database. Before deploy it checks object-name overlap in the target database
+and blocks deploy when conflicting objects already exist. This overlap guard is
+skipped when the C<-d> option is used.
 
 =head1 METHODS
 
@@ -186,6 +224,9 @@ Returns 1 for error, 0 for success.
                  Error: %s
          Instance of schema must be a 'DBIx::Class::Schema' object.
                  Reference: %s
+         Schema overlap detected.
+                 Type: %s
+                 Name: %s
 
 =head1 EXAMPLE
 
@@ -210,6 +251,7 @@ Returns 1 for error, 0 for success.
 
 =head1 DEPENDENCIES
 
+L<DBIx::Class::Schema::Overlap>,
 L<English>,
 L<Error::Pure>,
 L<Getopt::Std>.

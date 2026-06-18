@@ -7,7 +7,10 @@ SYNOPSIS
 DESCRIPTION
     "schema-deploy" deploys a DBIx::Class schema to a database. It accepts
     an optional inline schema version suffix in the form
-    "schema_module@schema_version".
+    "schema_module@schema_version". Before deploy it checks object-name
+    overlap in the target database and blocks deploy when conflicting
+    objects already exist. This overlap guard is skipped when the "-d"
+    option is used.
 
 ARGUMENTS
     *       "-d"

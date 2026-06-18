@@ -6,7 +6,7 @@ use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use File::Temp qw(tempfile);
-use Test::More 'tests' => 9;
+use Test::More 'tests' => 11;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn;
@@ -46,6 +46,26 @@ stdout_like(
 );
 is($ret, 0, 'Deployed SQLite database with inline schema version.');
 unlink $db_file_versioned;
+
+# Test.
+my (undef, $db_file_overlap) = tempfile();
+@ARGV = (
+	'-q',
+	'dbi:SQLite:dbname='.$db_file_overlap,
+	'Schema::Foo',
+);
+$ret = App::Schema::Deploy->new->run;
+is($ret, 0, 'Initial deploy for overlap test.');
+@ARGV = (
+	'-q',
+	'dbi:SQLite:dbname='.$db_file_overlap,
+	'Schema::Foo',
+);
+eval {
+	App::Schema::Deploy->new->run;
+};
+is($EVAL_ERROR, "Schema overlap detected.\n", 'Second deploy blocked by overlap check.');
+unlink $db_file_overlap;
 
 # Test.
 @ARGV = (
