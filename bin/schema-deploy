@@ -77,7 +77,9 @@ Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
 =back
 
-=head1 EXAMPLE
+=head1 EXAMPLES
+
+=head2 EXAMPLE
 
  schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote@0.1.0
 

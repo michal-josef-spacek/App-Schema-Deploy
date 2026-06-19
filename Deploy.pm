@@ -228,7 +228,9 @@ Returns 1 for error, 0 for success.
                  Type: %s
                  Name: %s
 
-=head1 EXAMPLE
+=head1 EXAMPLES
+
+=head2 EXAMPLE
 
 =for comment filename=deploy_schema_commons.pl
 

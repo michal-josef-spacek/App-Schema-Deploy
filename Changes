@@ -6,6 +6,7 @@
  - Add test.
  - Improve abstract.
  - Remove XXX from tests.
+ - Rewrite doc to use of =head1 EXAMPLES.
  - Update copyright years.
 
 0.05 2024-06-13T23:30:31+02:00

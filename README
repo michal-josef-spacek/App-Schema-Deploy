@@ -45,7 +45,8 @@ ARGUMENTS
 
             Name of Schema module. Must be a 'DBIx::Class::Schema' instance.
 
-EXAMPLE
+EXAMPLES
+  EXAMPLE
      schema-deploy dbi:SQLite:dbname=commons.vote.db Schema::Commons::Vote@0.1.0
 
 SEE ALSO
